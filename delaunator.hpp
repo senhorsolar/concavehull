@@ -6,7 +6,6 @@
 #include <iostream>
 #include <limits>
 #include <memory>
-#include <span>
 #include <utility>
 #include <vector>
 
@@ -109,7 +108,7 @@ namespace delaunator {
 	
 	struct compare {
 		
-		std::span<double> const& coords;
+		std::vector<double> const& coords;
 		double cx;
 		double cy;
 		
@@ -182,7 +181,7 @@ namespace delaunator {
 	class Delaunator {
 		
 	public:
-		std::span<double> const& coords;
+		std::vector<double> const& coords;
 		std::vector<std::size_t> triangles;
 		std::vector<std::size_t> halfedges;
 		std::vector<std::size_t> hull_prev;
@@ -190,7 +189,7 @@ namespace delaunator {
 		std::vector<std::size_t> hull_tri;
 		std::size_t hull_start;
 		
-		Delaunator(std::span<double> const& in_coords);
+		Delaunator(std::vector<double> const& in_coords);
 
 		double get_hull_area();
 		std::vector<double> get_hull_coords();
@@ -218,7 +217,7 @@ namespace delaunator {
 		void link(std::size_t a, std::size_t b);
 	};
 	
-	Delaunator::Delaunator(std::span<double> const& in_coords)
+	Delaunator::Delaunator(std::vector<double> const& in_coords)
 		: coords(in_coords),
 		  triangles(),
 		  halfedges(),
