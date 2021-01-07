@@ -1,3 +1,4 @@
+#include <cstring>
 #include <pybind11/pybind11.h>
 #include <pybind11/numpy.h>
 #include <vector>
@@ -17,17 +18,22 @@ py::array_t<double> pyconcavehull(py::array_t<double> pts, double chi_factor) {
 		throw std::runtime_error("Second dimension's size must be two");
 	}
 
-	auto result = py::array_t<double>(buf);
-
-	py::buffer_info bufres = result.request();
-
 	double *ptr = static_cast<double *>(buf.ptr);
 
-	bufres.ptr = concavehull({ptr, ptr+buf.size}, chi_factor).data();
+	std::vector<double> ch = concavehull({ptr, ptr+buf.size}, chi_factor);
 
-	return result;
+	py::buffer_info resbuf = py::buffer_info(
+		ch.data(),
+		buf.itemsize,
+		buf.format,
+		buf.ndim,
+		{(size_t)(ch.size() >> 1), (size_t)2},
+		buf.strides
+		);
+	return py::array_t<double>(resbuf);
 }
 
 PYBIND11_MODULE(concavehull, m) {
-	m.def("concavehull", &pyconcavehull, "Find concave hull from array of 2D points");
+	m.def("concavehull", &pyconcavehull, "Find concave hull from array of 2D points",
+	      py::arg("pts"), py::arg("chi_factor") = 0.1);
 }
