@@ -11,12 +11,12 @@
 #include "delaunator.hpp"
 
 
-std::vector<double> concavehull(const std::span<double> coords, double chi_factor=0.1) {
+std::vector<double> concavehull(const std::span<double> &coords, double chi_factor=0.1) {
 
 	if (chi_factor < 0 || chi_factor > 1) {
 		throw std::invalid_argument("Chi factor must be between 0 and 1 inclusive");
 	}
-	
+
 	delaunator::Delaunator d(coords);
 
 	// Determine initial points on outside hull
@@ -100,7 +100,7 @@ std::vector<double> concavehull(const std::span<double> coords, double chi_facto
 		
 		bset.insert(c);	
 	}
-	
+
 	return d.get_hull_coords();
 }
 

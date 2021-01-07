@@ -616,7 +616,7 @@ namespace delaunator {
 		const std::vector<size_t> hull_pts = get_hull_points();
 
 		std::vector<double> hull_coords;
-		
+
 		for (size_t point : hull_pts) {
 			double x = coords[2 * point];
 			double y = coords[2 * point + 1];

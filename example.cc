@@ -69,7 +69,7 @@ int main(int argc, char** argv) {
 	vector<double> coords = randn(lower_bound, upper_bound, size);
 	
 	delaunator::Delaunator d(coords);
-	vector<double> convexhull = d.get_hull_coords();
+	//vector<double> convexhull = d.get_hull_coords();
 
 	clock_t start = std::clock();
 	vector<double> chihull = concavehull(coords, chi_factor);
@@ -77,7 +77,7 @@ int main(int argc, char** argv) {
 
 	cout << "Time to find concave hull: " << duration << '\n';
 	
-	write_vector(convexhull, "convexhull.txt");
+	//write_vector(convexhull, "convexhull.txt");
 	write_vector(chihull, "concavehull.txt");
 	write_vector(coords, "coords.txt");
 	
