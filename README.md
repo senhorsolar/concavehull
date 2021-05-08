@@ -27,5 +27,7 @@ plt.scatter(pts[:,0], pts[:,1], label="points")
 plt.plot(ch[:,0], ch[:,1], label="concave hull")
 ```
 
+![concavehull](concave_hull.png)
+
 # References
 [1] M. Duckham, L. Kulik, M. F. Worboys, and A. Galton. Efficient generation of simple polygons for characterizing the shape of a set of points in the plane. Pattern Recognition, 41:3224–3236, 2008. 
