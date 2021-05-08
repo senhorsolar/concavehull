@@ -3,7 +3,7 @@ import time
 
 from concavehull import concavehull
     
-n = 100
+n = 500
 pts = np.random.randn(n,2)
 
 s = time.time()
@@ -17,6 +17,7 @@ try:
 
     plt.scatter(pts[:,0], pts[:,1])
     plt.plot(ch[:,0], ch[:,1])
+    plt.title(f"Concave Hull\nChi Factor: {chi_factor}")
     plt.show()
 
 except ImportError:
