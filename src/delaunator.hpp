@@ -181,7 +181,7 @@ namespace delaunator {
 	class Delaunator {
 		
 	public:
-		std::vector<double> const& coords;
+		const std::vector<double>& coords;
 		std::vector<std::size_t> triangles;
 		std::vector<std::size_t> halfedges;
 		std::vector<std::size_t> hull_prev;
@@ -189,7 +189,7 @@ namespace delaunator {
 		std::vector<std::size_t> hull_tri;
 		std::size_t hull_start;
 		
-		Delaunator(std::vector<double> const& in_coords);
+		Delaunator(const std::vector<double>& in_coords);
 
 		double get_hull_area();
 		std::vector<double> get_hull_coords();
@@ -217,7 +217,7 @@ namespace delaunator {
 		void link(std::size_t a, std::size_t b);
 	};
 	
-	Delaunator::Delaunator(std::vector<double> const& in_coords)
+	Delaunator::Delaunator(const std::vector<double>& in_coords)
 		: coords(in_coords),
 		  triangles(),
 		  halfedges(),
@@ -464,10 +464,10 @@ namespace delaunator {
 			 * then do the same check/flip recursively for the new pair of triangles
 			 *
 			 *           pl                    pl
-			 *          /||\                  /	\
+			 *          /||\                  /  \
 			 *       al/ || \bl            al/    \a
-			 *        /  ||  \              /	\
-			 *       /  a||b  \    flip    /___ar___	\
+			 *        /  ||  \              /      \
+			 *       /  a||b  \    flip    /___ar___\
 			 *     p0\   ||   /p1   =>   p0\---bl---/p1
 			 *        \  ||  /              \      /
 			 *       ar\ || /br             b\    /br
@@ -615,6 +615,7 @@ namespace delaunator {
 		const std::vector<size_t> hull_pts = get_hull_points();
 
 		std::vector<double> hull_coords;
+		hull_coords.reserve(2 * hull_pts.size());
 
 		for (size_t point : hull_pts) {
 			double x = coords[2 * point];

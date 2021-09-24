@@ -7,7 +7,7 @@
 
 namespace py = pybind11;
 
-py::array_t<double> pyconcavehull(py::array_t<double> pts, double chi_factor) {
+py::array_t<double> pyconcavehull(const py::array_t<double>& pts, double chi_factor) {
 	py::buffer_info buf = pts.request();
 	
 	if (buf.ndim != 2) {
