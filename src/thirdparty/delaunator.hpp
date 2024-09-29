@@ -9,6 +9,7 @@
 #include <limits>
 #include <vector>
 #include <ostream>
+#include <span>
 
 namespace delaunator {
 
@@ -74,7 +75,7 @@ class Points
 public:
     using const_iterator = Point const *;
 
-    Points(const std::vector<double>& coords) : m_coords(coords)
+    Points(const std::span<double>& coords) : m_coords(coords)
     {}
 
     const Point& operator[](size_t offset)
@@ -92,13 +93,13 @@ public:
         { return m_coords.size() / 2; }
 
 private:
-    const std::vector<double>& m_coords;
+    const std::span<double>& m_coords;
 };
 
 class Delaunator {
 
 public:
-    std::vector<double> const& coords;
+    std::span<double> const& coords;
     Points m_points;
 
     // 'triangles' stores the indices to the 'X's of the input
@@ -120,7 +121,7 @@ public:
     std::vector<std::size_t> hull_tri;
     std::size_t hull_start;
 
-    INLINE Delaunator(std::vector<double> const& in_coords);
+    INLINE Delaunator(std::span<double> const& in_coords);
     INLINE double get_hull_area();
     INLINE double get_triangle_area();
 

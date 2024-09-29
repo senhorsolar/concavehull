@@ -20,7 +20,7 @@ inline size_t fast_mod(const size_t i, const size_t c) {
 }
 
 // Kahan and Babuska summation, Neumaier variant; accumulates less FP error
-inline double sum(const std::vector<double>& x) {
+inline double sum(const std::span<double>& x) {
     double sum = x[0];
     double err = 0.0;
 
@@ -199,7 +199,7 @@ inline double pseudo_angle(const double dx, const double dy) {
 }
 
 
-Delaunator::Delaunator(std::vector<double> const& in_coords)
+Delaunator::Delaunator(std::span<double> const& in_coords)
     : coords(in_coords), m_points(in_coords)
 {
     std::size_t n = coords.size() >> 1;

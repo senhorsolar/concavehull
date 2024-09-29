@@ -9,28 +9,28 @@
 
 #include "thirdparty/delaunator-header-only.hpp"
 
-size_t next_halfedge(size_t e) {
+inline size_t next_halfedge(size_t e) {
 		return (e % 3 == 2) ? e - 2 : e + 1;
 }
 
-size_t prev_halfedge(size_t e) {
+inline size_t prev_halfedge(size_t e) {
 	return (e % 3 == 0) ? e + 2 : e - 1;
 }
 
 std::vector<size_t> get_hull_points(delaunator::Delaunator& d) {
-		std::vector<size_t> hull_pts;
+	std::vector<size_t> hull_pts;
 
-		size_t point = d.hull_start;
-		do {
-			hull_pts.push_back(point);
-			point = d.hull_next[point];
-		}
-		while (point != d.hull_start);
+	size_t point = d.hull_start;
+	do {
+		hull_pts.push_back(point);
+		point = d.hull_next[point];
+	}
+	while (point != d.hull_start);
 
-		// Wrap back around
-		hull_pts.push_back(d.hull_start);
+	// Wrap back around
+	hull_pts.push_back(d.hull_start);
 
-		return hull_pts;
+	return hull_pts;
 }
 
 std::vector<double> get_hull_coords(delaunator::Delaunator& d) {
@@ -65,7 +65,7 @@ size_t get_interior_point(delaunator::Delaunator& d, size_t e) {
 	return d.triangles[next_halfedge(next_halfedge(e))];
 }
 
-std::vector<double> concavehull(const std::vector<double>& coords, double chi_factor=0.1) {
+std::vector<double> concavehull(const std::span<double>& coords, double chi_factor=0.1) {
 
 	if (chi_factor < 0 || chi_factor > 1) {
 		throw std::invalid_argument("Chi factor must be between 0 and 1 inclusive");
@@ -85,6 +85,7 @@ std::vector<double> concavehull(const std::vector<double>& coords, double chi_fa
 	};
 	
 	std::vector<hpair> bheap;
+	bheap.reserve(bpoints.size());
 
 	double max_len = std::numeric_limits<double>::min();
 	double min_len = std::numeric_limits<double>::max();
