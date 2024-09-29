@@ -4,7 +4,7 @@ Finds the concave hull around a set of 2D points using an implementation based o
 
 The algorithm is implemented in C++, and python bindings are available through pybind11.
 
-The algorithm begins by finding the Delaunay triagulation of a set of 2D points using [https://github.com/delfrrr/delaunator-cpp](https://github.com/delfrrr/delaunator-cpp), initializes the hull to the convex hull, then iteratively adds points to the hull until some stopping condition is met. The algorithm iteratively selects the largest triangle edge on the outside hull, and if the third triangle point is not on the hull, proceeds to remove this edge and add the two other edges connected to this point to the hull.
+The algorithm begins by finding the Delaunay triagulation of a set of 2D points using [https://github.com/abellgithub/delaunator-cpp](https://github.com/abellgithub/delaunator-cpp), initializes the hull to the convex hull, then iteratively adds points to the hull until some stopping condition is met. The algorithm iteratively selects the largest triangle edge on the outside hull, and if the third triangle point is not on the hull, proceeds to remove this edge and add the two other edges connected to this point to the hull.
 
 # Installation
 
