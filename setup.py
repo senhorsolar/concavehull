@@ -5,6 +5,7 @@ from pybind11.setup_helpers import Pybind11Extension, build_ext
 ext_modules = [
     Pybind11Extension("concavehull",
                       ["src/bindings.cc"],
+                      cxx_std=20
     ),
 ]
 
